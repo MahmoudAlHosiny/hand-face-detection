@@ -7,6 +7,7 @@ app = Flask(__name__)
 mp_hands = mp.solutions.hands
 mp_faces = mp.solutions.face_mesh
 draw = mp.solutions.drawing_utils
+face_draww=draw.DrawingSpec(thickness=1,circle_radius=1)
 
 hands = mp_hands.Hands()
 faces = mp_faces.FaceMesh()
@@ -29,7 +30,7 @@ def generate_frames():
 
         if result2.multi_face_landmarks:
             for face_landmarks in result2.multi_face_landmarks:
-                draw.draw_landmarks(frame, face_landmarks, mp_faces.FACEMESH_CONTOURS)
+                draw.draw_landmarks(frame, face_landmarks, mp_faces.FACEMESH_CONTOURS,face_draww,face_draww)
 
         _, buffer = cv2.imencode('.jpg', frame)
         frame = buffer.tobytes()
